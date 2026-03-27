@@ -18,7 +18,7 @@
         </label>
 
         <label>
-          Contrasena
+          Contraseña
           <input v-model="form.password" type="password" minlength="6" required />
         </label>
 
