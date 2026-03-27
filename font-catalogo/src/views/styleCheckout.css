@@ -1,0 +1,149 @@
+.checkout {
+  min-height: 100vh;
+  background: #f8f4ef;
+  padding: 2.4rem 1.2rem;
+}
+
+.checkout__contenedor {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.checkout__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.8rem;
+}
+
+.checkout__header h1 {
+  margin: 0;
+  color: #2c2419;
+}
+
+.checkout__volver {
+  border: 1px solid #c9b49b;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+}
+
+.checkout__layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 1.6rem;
+}
+
+.checkout__formulario,
+.checkout__resumen {
+  background: #fffefb;
+  border: 1px solid #eadfce;
+  border-radius: 12px;
+  padding: 1.4rem;
+}
+
+.checkout__formulario h2,
+.checkout__resumen h2 {
+  margin-top: 0;
+  color: #2c2419;
+}
+
+.checkout__formulario form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.checkout__formulario label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: #4f4338;
+}
+
+.checkout__formulario input,
+.checkout__formulario select {
+  border: 1px solid #d4c2ab;
+  border-radius: 8px;
+  padding: 0.7rem 0.8rem;
+  font: inherit;
+}
+
+.checkout__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+
+.checkout__mensaje {
+  margin: 0.3rem 0;
+  color: #8b2c2c;
+  font-weight: 600;
+}
+
+.checkout__pagar {
+  margin-top: 0.4rem;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  color: #fff;
+  background: linear-gradient(135deg, #b8894b, #8a6335);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.checkout__pagar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.checkout__resumen ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.checkout__resumen li {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 0.6rem;
+  align-items: center;
+  border-bottom: 1px solid #f0e7da;
+  padding-bottom: 0.55rem;
+}
+
+.checkout__resumen img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.checkout__resumen p {
+  margin: 0;
+  font-weight: 700;
+  color: #2c2419;
+}
+
+.checkout__resumen small {
+  color: #6b5d4f;
+}
+
+.checkout__total {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid #eadfce;
+  display: flex;
+  justify-content: space-between;
+  color: #2c2419;
+}
+
+@media (max-width: 900px) {
+  .checkout__layout {
+    grid-template-columns: 1fr;
+  }
+}

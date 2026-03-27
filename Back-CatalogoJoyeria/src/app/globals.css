@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0f1115;
+  color: #f5f7fa;
+}
+
+main {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.card {
+  max-width: 720px;
+  width: 100%;
+  border: 1px solid #2a2f3a;
+  border-radius: 12px;
+  padding: 24px;
+  background: #151923;
+}
+
+.muted {
+  color: #a8b0bf;
+}
+
+code {
+  background: #222835;
+  padding: 2px 6px;
+  border-radius: 6px;
+}

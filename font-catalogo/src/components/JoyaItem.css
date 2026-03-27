@@ -1,0 +1,153 @@
+.joya-card {
+  border: 1px solid #e8e0d5;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+  background: #fffefb;
+  box-shadow: 0 2px 8px rgba(40, 32, 24, 0.06);
+  max-width: 220px;
+}
+
+.joya-card img {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.joya-card h4 {
+  font-size: 2rem;
+  margin: 0.8rem 0 0.5rem;
+  line-height: 1.2;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tipo {
+  font-size: 1.2rem;
+  color: #6b5d4f;
+  margin: 0 0 8px;
+}
+
+.precio {
+  margin: 0;
+  font-weight: 600;
+  color: #2c2419;
+}
+
+.joya-card button,
+.joya-card .btn,
+.joya-card .btn-primary {
+  margin-top: 8px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: linear-gradient(135deg, #b8894b, #8a6335);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.joya-card button:hover,
+.joya-card .btn:hover,
+.joya-card .btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(138, 99, 53, 0.25);
+  filter: brightness(1.05);
+}
+
+.joya-card button:active,
+.joya-card .btn:active,
+.joya-card .btn-primary:active {
+  transform: translateY(0);
+}
+
+.joya-card button:focus-visible,
+.joya-card .btn:focus-visible,
+.joya-card .btn-primary:focus-visible {
+  outline: 2px solid #d2a66a;
+  outline-offset: 2px;
+}
+
+.joya-card--accion-visible .tipo {
+  display: block !important;
+}
+
+.joya-card--accion-visible button,
+.joya-card--accion-visible .btn,
+.joya-card--accion-visible .btn-primary {
+  display: block !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .joya-card .tipo {
+    display: block;
+  }
+
+  .joya-card button,
+  .joya-card .btn,
+  .joya-card .btn-primary {
+    display: none;
+  }
+
+  .joya-card:hover .tipo,
+  .joya-card:focus-within .tipo {
+    display: none;
+  }
+
+  .joya-card:hover button,
+  .joya-card:hover .btn,
+  .joya-card:hover .btn-primary,
+  .joya-card:focus-within button,
+  .joya-card:focus-within .btn,
+  .joya-card:focus-within .btn-primary {
+    display: block;
+  }
+}
+
+@media (hover: none) {
+  .joya-card button,
+  .joya-card .btn,
+  .joya-card .btn-primary {
+    display: block;
+  }
+}
+
+@media (max-width: 500px) {
+  .joya-card {
+    max-width: 170px;
+    padding: 10px;
+  }
+
+  .joya-card img {
+    max-width: 150px;
+  }
+
+  .joya-card h4 {
+    font-size: 1.8rem;
+    margin: 0.8rem 0;
+  }
+
+  .tipo {
+    font-size: 0.85rem;
+    margin: 0 0 6px;
+  }
+
+  .precio {
+    font-size: 1.4rem;
+  }
+
+  .joya-card button,
+  .joya-card .btn,
+  .joya-card .btn-primary {
+    font-size: 1.2rem;
+    padding: 8px 10px;
+  }
+}
