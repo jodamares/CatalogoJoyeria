@@ -1,14 +1,16 @@
-import { GoldKarat } from "@prisma/client";
 import { corsJson, corsPreflight } from "@/lib/cors";
 import { requireAdmin } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
+
+const VALID_KARATS = ["K10", "K14", "K18", "K24"] as const;
+type GoldKarat = (typeof VALID_KARATS)[number];
 
 export function OPTIONS() {
   return corsPreflight();
 }
 
 function isValidKarat(value: string): value is GoldKarat {
-  return Object.values(GoldKarat).includes(value as GoldKarat);
+  return (VALID_KARATS as readonly string[]).includes(value);
 }
 
 export async function POST(request: Request) {
