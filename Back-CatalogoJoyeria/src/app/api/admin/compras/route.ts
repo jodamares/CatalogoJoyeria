@@ -24,7 +24,7 @@ export async function GET(request: Request) {
 
     return corsJson({
       ok: true,
-      items: items.map((item) => ({
+      items: items.map((item: (typeof items)[number]) => ({
         id: item.id,
         status: item.status,
         paymentMethod: item.paymentMethod,
