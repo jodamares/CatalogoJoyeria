@@ -1,4 +1,4 @@
-import { GoldKarat } from "@prisma/client";
+import type { GoldKarat } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 
 const OUNCE_TROY_IN_GRAMS = 31.1034768;

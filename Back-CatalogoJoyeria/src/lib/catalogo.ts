@@ -1,4 +1,4 @@
-import { GoldKarat, type GoldPriceCurrent } from "@prisma/client";
+import type { GoldKarat, GoldPriceCurrent } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { calcularPrecioProducto, getMaterialLabel } from "@/lib/pricing";
 import { syncGoldPrices } from "@/lib/gold-price-sync";

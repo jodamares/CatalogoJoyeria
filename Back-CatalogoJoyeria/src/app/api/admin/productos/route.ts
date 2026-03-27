@@ -1,7 +1,7 @@
 import { corsJson, corsPreflight } from "@/lib/cors";
 import { requireAdmin } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
-import { GoldKarat, MaterialType, type GoldPriceCurrent } from "@prisma/client";
+import { MaterialType, type GoldKarat, type GoldPriceCurrent } from "@prisma/client";
 import { calcularPrecioProducto } from "@/lib/pricing";
 import { syncGoldPrices } from "@/lib/gold-price-sync";
 import { ensureGoldPriceAutoSyncStarted } from "@/lib/gold-price-auto-sync";
@@ -9,6 +9,7 @@ import { ensureGoldPriceAutoSyncStarted } from "@/lib/gold-price-auto-sync";
 function buildGoldPriceMap(items: GoldPriceCurrent[]) {
   return new Map<GoldKarat, GoldPriceCurrent>(items.map((item) => [item.karat, item]));
 }
+const VALID_GOLD_KARATS = ["K10", "K14", "K18", "K24"] as const;
 
 export function OPTIONS() {
   return corsPreflight();
@@ -67,7 +68,7 @@ function isValidMaterialType(value: string): value is MaterialType {
 }
 
 function isValidGoldKarat(value: string): value is GoldKarat {
-  return Object.values(GoldKarat).includes(value as GoldKarat);
+  return (VALID_GOLD_KARATS as readonly string[]).includes(value);
 }
 
 export async function POST(request: Request) {

@@ -1,4 +1,4 @@
-import { GoldKarat, MaterialType, type GoldPriceCurrent, type Product } from "@prisma/client";
+import { MaterialType, type GoldKarat, type GoldPriceCurrent, type Product } from "@prisma/client";
 
 type ProductForPricing = Pick<
   Product,
