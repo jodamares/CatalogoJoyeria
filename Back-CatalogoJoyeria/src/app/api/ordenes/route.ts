@@ -1,7 +1,14 @@
-import { OrderPaymentMethod, OrderStatus } from "@prisma/client";
 import { corsJson, corsPreflight } from "@/lib/cors";
 import { verifyAuthToken } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+
+type OrderPaymentMethod = "TRANSFERENCIA" | "TARJETA" | "PAYPAL";
+type OrderStatus = "PENDIENTE" | "PAGADO" | "CANCELADO";
+const PAYMENT_METHOD_TRANSFERENCIA: OrderPaymentMethod = "TRANSFERENCIA";
+const PAYMENT_METHOD_TARJETA: OrderPaymentMethod = "TARJETA";
+const PAYMENT_METHOD_PAYPAL: OrderPaymentMethod = "PAYPAL";
+const ORDER_STATUS_PENDIENTE: OrderStatus = "PENDIENTE";
+const ORDER_STATUS_PAGADO: OrderStatus = "PAGADO";
 
 export function OPTIONS() {
   return corsPreflight();
@@ -15,9 +22,9 @@ function getBearerToken(authorizationHeader: string | null) {
 }
 
 function parsePaymentMethod(value: string | undefined) {
-  if (value === "tarjeta") return OrderPaymentMethod.TARJETA;
-  if (value === "paypal") return OrderPaymentMethod.PAYPAL;
-  return OrderPaymentMethod.TRANSFERENCIA;
+  if (value === "tarjeta") return PAYMENT_METHOD_TARJETA;
+  if (value === "paypal") return PAYMENT_METHOD_PAYPAL;
+  return PAYMENT_METHOD_TRANSFERENCIA;
 }
 
 export async function POST(request: Request) {
@@ -49,7 +56,7 @@ export async function POST(request: Request) {
         city: customer.ciudad || "",
         postalCode: customer.codigoPostal || "",
         paymentMethod,
-        status: paymentMethod === OrderPaymentMethod.TRANSFERENCIA ? OrderStatus.PAGADO : OrderStatus.PENDIENTE,
+        status: paymentMethod === PAYMENT_METHOD_TRANSFERENCIA ? ORDER_STATUS_PAGADO : ORDER_STATUS_PENDIENTE,
         currency: body?.currency || "COP",
         total,
         items,

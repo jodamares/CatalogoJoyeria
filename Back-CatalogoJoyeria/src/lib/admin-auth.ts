@@ -1,6 +1,7 @@
-import { UserRole } from "@prisma/client";
 import { corsJson } from "@/lib/cors";
 import { verifyAuthToken } from "@/lib/auth";
+
+const USER_ROLE_ADMIN = "ADMIN";
 
 function getBearerToken(authorizationHeader: string | null) {
   if (!authorizationHeader?.startsWith("Bearer ")) {
@@ -20,7 +21,7 @@ export function requireAdmin(request: Request) {
     return { ok: false as const, response: corsJson({ ok: false, message: "Token invalido." }, { status: 401 }) };
   }
 
-  if (payload.role !== UserRole.ADMIN) {
+  if (payload.role !== USER_ROLE_ADMIN) {
     return { ok: false as const, response: corsJson({ ok: false, message: "Acceso solo admin." }, { status: 403 }) };
   }
 

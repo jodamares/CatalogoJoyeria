@@ -1,7 +1,7 @@
-import type { GoldKarat } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 
 const OUNCE_TROY_IN_GRAMS = 31.1034768;
+type GoldKarat = "K10" | "K14" | "K18" | "K24";
 const REQUIRED_KARATS: GoldKarat[] = ["K24", "K18", "K14", "K10"];
 
 const KARAT_PURITY: Record<GoldKarat, number> = {

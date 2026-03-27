@@ -1,20 +1,23 @@
 import { corsJson, corsPreflight } from "@/lib/cors";
 import { requireAdmin } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
-import { MaterialType, type GoldKarat, type GoldPriceCurrent } from "@prisma/client";
 import { calcularPrecioProducto } from "@/lib/pricing";
 import { syncGoldPrices } from "@/lib/gold-price-sync";
 import { ensureGoldPriceAutoSyncStarted } from "@/lib/gold-price-auto-sync";
 
 type Params = { params: Promise<{ id: string }> };
 const VALID_GOLD_KARATS = ["K10", "K14", "K18", "K24"] as const;
+const MATERIAL_TYPES = ["ORO", "PLATA", "ACERO", "OTRO"] as const;
+type GoldKarat = (typeof VALID_GOLD_KARATS)[number];
+type MaterialType = (typeof MATERIAL_TYPES)[number];
+type GoldPriceCurrentRow = Awaited<ReturnType<typeof prisma.goldPriceCurrent.findMany>>[number];
 
-function buildGoldPriceMap(items: GoldPriceCurrent[]) {
-  return new Map<GoldKarat, GoldPriceCurrent>(items.map((item) => [item.karat, item]));
+function buildGoldPriceMap(items: GoldPriceCurrentRow[]) {
+  return new Map<GoldKarat, GoldPriceCurrentRow>(items.map((item) => [item.karat as GoldKarat, item]));
 }
 
 function isValidMaterialType(value: string): value is MaterialType {
-  return Object.values(MaterialType).includes(value as MaterialType);
+  return (MATERIAL_TYPES as readonly string[]).includes(value);
 }
 
 function isValidGoldKarat(value: string): value is GoldKarat {
@@ -58,7 +61,7 @@ export async function PATCH(request: Request, { params }: Params) {
       return corsJson({ ok: false, message: "karat invalido." }, { status: 400 });
     }
 
-    if (materialType === MaterialType.ORO && karat != null && (karat === "" || karat == null)) {
+    if (materialType === "ORO" && karat != null && (karat === "" || karat == null)) {
       return corsJson({ ok: false, message: "karat requerido para productos de oro." }, { status: 400 });
     }
 

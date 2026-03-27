@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
-import type { UserRole } from "@prisma/client";
+
+export type UserRole = "ADMIN" | "USER";
 
 const JWT_SECRET = process.env.JWT_SECRET || "dev-secret-change-this";
 const TOKEN_EXPIRES_IN = "7d";

@@ -1,7 +1,10 @@
-import type { GoldKarat, GoldPriceCurrent } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { calcularPrecioProducto, getMaterialLabel } from "@/lib/pricing";
 import { syncGoldPrices } from "@/lib/gold-price-sync";
+
+const VALID_GOLD_KARATS = ["K10", "K14", "K18", "K24"] as const;
+type GoldKarat = (typeof VALID_GOLD_KARATS)[number];
+type GoldPriceCurrentRow = Awaited<ReturnType<typeof prisma.goldPriceCurrent.findMany>>[number];
 
 export async function obtenerCatalogoCalculado() {
   await syncGoldPrices(false);
@@ -17,8 +20,8 @@ export async function obtenerCatalogoCalculado() {
     prisma.goldPriceCurrent.findMany(),
   ]);
 
-  const goldPriceByKarat = new Map<GoldKarat, GoldPriceCurrent>(
-    goldPriceCurrent.map((item) => [item.karat, item])
+  const goldPriceByKarat = new Map<GoldKarat, GoldPriceCurrentRow>(
+    goldPriceCurrent.map((item) => [item.karat as GoldKarat, item])
   );
 
   return products.map((product) => ({

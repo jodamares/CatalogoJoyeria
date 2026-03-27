@@ -1,9 +1,19 @@
-import { MaterialType, type GoldKarat, type GoldPriceCurrent, type Product } from "@prisma/client";
+type MaterialType = "ORO" | "PLATA" | "ACERO" | "OTRO";
+type GoldKarat = "K10" | "K14" | "K18" | "K24";
+type GoldPriceCurrentLike = { karat: GoldKarat; pricePerGram: unknown };
 
-type ProductForPricing = Pick<
-  Product,
-  "materialType" | "karat" | "weightGrams" | "laborCost" | "marginCost" | "fixedBasePrice"
->;
+const MATERIAL_TYPE_ORO = "ORO" as MaterialType;
+const MATERIAL_TYPE_PLATA = "PLATA" as MaterialType;
+const MATERIAL_TYPE_ACERO = "ACERO" as MaterialType;
+
+type ProductForPricing = {
+  materialType: MaterialType;
+  karat: GoldKarat | null;
+  weightGrams: unknown;
+  laborCost: unknown;
+  marginCost: unknown;
+  fixedBasePrice: unknown;
+};
 
 const karatLabelMap: Record<GoldKarat, string> = {
   K10: "10k",
@@ -13,24 +23,24 @@ const karatLabelMap: Record<GoldKarat, string> = {
 };
 
 export function getMaterialLabel(materialType: MaterialType, karat: GoldKarat | null) {
-  if (materialType === MaterialType.ORO) {
+  if (materialType === MATERIAL_TYPE_ORO) {
     return `Oro ${karat ? karatLabelMap[karat] : ""}`.trim();
   }
 
-  if (materialType === MaterialType.PLATA) return "Plata";
-  if (materialType === MaterialType.ACERO) return "Acero";
+  if (materialType === MATERIAL_TYPE_PLATA) return "Plata";
+  if (materialType === MATERIAL_TYPE_ACERO) return "Acero";
   return "Otro material";
 }
 
 export function calcularPrecioProducto(
   product: ProductForPricing,
-  goldPriceByKarat: Map<GoldKarat, GoldPriceCurrent>
+  goldPriceByKarat: Map<GoldKarat, GoldPriceCurrentLike>
 ) {
   const labor = Number(product.laborCost);
   const margin = Number(product.marginCost);
   const peso = Number(product.weightGrams);
 
-  if (product.materialType === MaterialType.ORO && product.karat) {
+  if (product.materialType === MATERIAL_TYPE_ORO && product.karat) {
     const currentPrice = goldPriceByKarat.get(product.karat);
     const pricePerGram = Number(currentPrice?.pricePerGram ?? 0);
     return Math.round(peso * pricePerGram + labor + margin);

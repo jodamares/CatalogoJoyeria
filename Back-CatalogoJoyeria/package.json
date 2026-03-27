@@ -5,6 +5,7 @@
   "description": "Backend Next.js para Catalogo Joyeria",
   "scripts": {
     "dev": "next dev",
+    "postinstall": "prisma generate",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
